@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<!--
+<project name="MyOwn" default="default" basedir=".">
+    <description>Builds, tests, and runs the project emuarm.</description>
+    <import file="nbproject/build-impl.xml"/>
+    
+
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
+
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -post-clean:               called after cleaning build products
+
+    (Targets beginning with '-' are not intended to be called on their own.)
+
+    Example of inserting an obfuscator after compilation could look like this:
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are: 
+
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar:                  JAR building
+      run:                      execution of project 
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
+
+    An example of overriding the target for project execution could look like this:
+
+        <target name="run" depends="emuarm-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that the overridden target depends on the jar target and not only on 
+    the compile target as the regular run target does. Again, for a list of available 
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file. 
+
+    
+	 <target name ="MyOwn.makejar" description="Create a jar for the Eclipse project">
+	    <jar jarfile="Main.jar" includes="*.class" basedir="bin"/>
+	  </target>
+	  -->
+	 
+	
+	<project name="MyOwn" basedir=".">
+
+	    <target name="clean">
+	    		    	
+	        <delete dir="build/classes/frontend"/>
+	    	<delete dir="build/classes/backend"/>
+	    	<delete file="build/classes/Main.class"/>
+	    	<delete file="build/classes/FileTreeModel.class"/>
+	    	<delete file="build/classes/FileTreeDemo.class"/>
+	    	<delete file="emuArm.jar"/>
+	    	<delete file="emuArm_cmd.jar"/>
+	    	<delete file="util.jar"/>
+	    	<delete file="Untitled0.s"/>
+	    </target>
+
+		<target name="help">
+			
+			<echo>Type ant compile for compilation</echo>
+			<echo>Type ant jar for the creation of a jar file</echo>
+			<echo>To run the jar (emuArm.jar) that is created using GUI, simply type java -jar emuArm.jar</echo>
+			<echo>To run the jar (emuArm.jar) that is created using file input, simply type java -jar emuArm.jar -f=filename. Eg. java -jar emuArm.jar -f=temp.s</echo>
+			<echo>To display the register, branch and memory tables in the output in command line mode, type -tables after -f</echo>
+		</target>
+
+	    <target name="compile">
+	        <!--<mkdir dir="build/classes"/>-->
+	        <javac srcdir="src" includeantruntime="false" destdir="build/classes"/>
+	    </target>
+
+	    <target name="jar">
+	        <!--<mkdir dir="build/jar"/>-->
+	        <jar destfile="emuArm.jar" basedir="build/classes">
+	            <manifest>
+	                <attribute name="Main-Class" value="Main"/>
+	            </manifest>
+	        </jar>
+	    </target>
+		
+		<target name="build-jar">
+		   <jar destfile="util.jar"
+		   	basedir="bin" 
+		      includes="*.class">
+		      <!--<manifest>
+		         <attribute name="Main-Class" value="/home/kushagra/Desktop/semester_3/advanced_programming/java_programs/MyOwn/src/Main"/>
+		      </manifest>-->
+
+		   </jar>
+		
+		</target>
+	</project>
